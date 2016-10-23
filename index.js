@@ -17,7 +17,7 @@ module.exports = function (next) {
       stream(null, function (err, data) {
         if(err) {
           stream = null
-          if(err === true) setTimeout(more, 100)
+          if(err === true) setImmediate(more)
           else             cb(err)
         }
         else
