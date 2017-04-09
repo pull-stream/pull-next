@@ -1,5 +1,9 @@
 var noop = function () {}
 
+function isSource (fn) {
+  return 'function' !== typeof stream && stream.length == 2
+}
+
 module.exports = function (next) {
   var stream
   return function (abort, cb) {
@@ -12,8 +16,9 @@ module.exports = function (next) {
       if(!stream) {
         try { stream = next() }
         catch(err) { return cb(err) }
-        if(!stream) return cb(true)
+        if(!isSource(fn)) return cb(true)
       }
+
       stream(null, function (err, data) {
         if(err) {
           stream = null
@@ -26,4 +31,5 @@ module.exports = function (next) {
     })()
   }
 }
+
 
