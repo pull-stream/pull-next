@@ -22,7 +22,7 @@ module.exports = function (next) {
       stream(null, function (err, data) {
         if(err) {
           stream = null
-          if(err === true) setImmediate(more)
+          if(err === true) (global.setImmediate || global.setTimeout)(more)
           else             cb(err)
         }
         else
